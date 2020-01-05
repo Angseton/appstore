@@ -7,11 +7,27 @@
 //
 
 import UIKit
+import SDWebImage
 
 private let reuseIdentifier = "Cell"
 
 class AppSearchController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    private var appResults = [Result]()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    private let enterSearchTermLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Please enter search term above..."
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = .darkGray
+        return label
+    }()
+    
+    var timer: Timer?
+    
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -20,67 +36,67 @@ class AppSearchController: UICollectionViewController, UICollectionViewDelegateF
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        timer?.invalidate()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        // Do any additional setup after loading the view.
+        setUpSearchBar()
+        collectionView.addSubview(enterSearchTermLabel)
+        enterSearchTermLabel.fillSuperview(padding: .init(top: 280, left: 70, bottom: 0, right: 50))
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        enterSearchTermLabel.isHidden = appResults.count != 0
+        return appResults.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchResultCell
+        cell.appResult = appResults[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 350)
     }
+}
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
+private extension AppSearchController {
+    func fetchITunesApps(searchTerm: String) {
+        Service.shared.fetchApps(searchTerm: searchTerm) { [unowned self] results, error in
+            if let error = error {
+                print("Failed to fetch apps:", error)
+            }
+            self.appResults = results
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    func setUpSearchBar() {
+        definesPresentationContext = true
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
     }
-    */
+}
 
+extension AppSearchController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { [weak self] _ in
+            guard let this = self else { return }
+            
+            this.fetchITunesApps(searchTerm: searchText)
+        }
+    }
 }
