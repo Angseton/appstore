@@ -11,7 +11,7 @@ import SDWebImage
 
 private let reuseIdentifier = "Cell"
 
-class AppSearchController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class AppSearchController: BaseListController {
 
     private var appResults = [Result]()
     
@@ -27,14 +27,6 @@ class AppSearchController: UICollectionViewController, UICollectionViewDelegateF
     }()
     
     var timer: Timer?
-    
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     deinit {
         timer?.invalidate()
@@ -95,7 +87,7 @@ extension AppSearchController: UISearchBarDelegate {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { [weak self] _ in
             guard let this = self else { return }
-            
+
             this.fetchITunesApps(searchTerm: searchText)
         }
     }

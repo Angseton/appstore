@@ -38,7 +38,7 @@ class SearchResultCell: UICollectionViewCell {
     }()
     
     let nameLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel() 
         label.text = "APP NAME"
         return label
     }()
