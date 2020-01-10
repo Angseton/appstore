@@ -17,9 +17,19 @@ class AppsPageController: BaseListController {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: mainCellId)
-        collectionView.register(<#T##viewClass: AnyClass?##AnyClass?#>,
-                                forSupplementaryViewOfKind: <#T##String#>,
+        collectionView.register(AppsPageHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: headerID)
+        
+        fetchData()
+    }
+    
+    private func fetchData() {
+    
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: view.frame.width, height: 320)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
