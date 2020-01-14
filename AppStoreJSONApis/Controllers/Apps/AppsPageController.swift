@@ -25,7 +25,16 @@ class AppsPageController: BaseListController {
     }
     
     private func fetchData() {
-    
+        Service.shared.fetchGames { (appGroup, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            self.editorsChoiceGame = appGroup
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -38,11 +47,15 @@ class AppsPageController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
     
+    var editorsChoiceGame: AppGroup?
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainCellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainCellId, for: indexPath) as! AppsGroupCell
+        cell.sectionLabel.text = self.editorsChoiceGame?.feed.title ?? ""
+        cell.horizontalController.results = self.editorsChoiceGame?.feed.results ?? []
         return cell
     }
     

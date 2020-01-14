@@ -13,9 +13,9 @@ private let reuseIdentifier = "Cell"
 
 class AppSearchController: BaseListController {
 
-    private var appResults = [Result]()
+    private var _appResults = [Result]()
     
-    private let searchController = UISearchController(searchResultsController: nil)
+    private let _searchController = UISearchController(searchResultsController: nil)
     
     private let enterSearchTermLabel: UILabel = {
         let label = UILabel()
@@ -44,13 +44,13 @@ class AppSearchController: BaseListController {
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        enterSearchTermLabel.isHidden = appResults.count != 0
-        return appResults.count
+        enterSearchTermLabel.isHidden = _appResults.count != 0
+        return _appResults.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchResultCell
-        cell.appResult = appResults[indexPath.item]
+        cell.appResult = _appResults[indexPath.item]
         return cell
     }
     
@@ -65,7 +65,7 @@ private extension AppSearchController {
             if let error = error {
                 print("Failed to fetch apps:", error)
             }
-            self.appResults = results
+            self._appResults = results
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -74,10 +74,10 @@ private extension AppSearchController {
     
     func setUpSearchBar() {
         definesPresentationContext = true
-        navigationItem.searchController = searchController
+        navigationItem.searchController = _searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
+        _searchController.dimsBackgroundDuringPresentation = false
+        _searchController.searchBar.delegate = self
     }
 }
 

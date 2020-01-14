@@ -10,7 +10,7 @@ import UIKit
 
 class AppsGroupCell: UICollectionViewCell {
     
-    let horizontalController: UIViewController = {
+    let horizontalController: AppsHorizontalController = {
         let controller = AppsHorizontalController()
         return controller
     }()

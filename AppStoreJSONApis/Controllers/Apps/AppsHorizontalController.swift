@@ -16,6 +16,12 @@ class AppsHorizontalController: BaseListController {
     let leftRightPadding: CGFloat = 20
     let lineSpacing: CGFloat = 10
     
+    var results = [FeedResult]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -26,12 +32,17 @@ class AppsHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AppsRowCell
+        if !results.isEmpty {
+            cell.appIcon.sd_setImage(with: URL(string: results[indexPath.item].artworkUrl100)!, completed: nil)
+            cell.appNameLabel.text = results[indexPath.item].name
+            cell.companyLabel.text = results[indexPath.item].artistName
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return results.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
