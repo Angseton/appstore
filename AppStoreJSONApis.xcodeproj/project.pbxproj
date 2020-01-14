@@ -17,6 +17,9 @@
 		07146FF023C8E6A100D9C819 /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07146FEF23C8E6A100D9C819 /* AppsHeaderHorizontalController.swift */; };
 		07146FF223C8E88400D9C819 /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07146FF123C8E88400D9C819 /* AppsHeaderCell.swift */; };
 		07146FF423C8F8D400D9C819 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07146FF323C8F8D400D9C819 /* AppGroup.swift */; };
+		071470AF23CD63D800D9C819 /* SocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071470AE23CD63D800D9C819 /* SocialApp.swift */; };
+		071470B123CD6B4100D9C819 /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071470B023CD6B4100D9C819 /* HorizontalSnappingController.swift */; };
+		071470B323CD726900D9C819 /* SnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071470B223CD726900D9C819 /* SnappingLayout.swift */; };
 		0745F39223BF91E2009AD989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745F39123BF91E2009AD989 /* AppDelegate.swift */; };
 		0745F39923BF91E5009AD989 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0745F39823BF91E5009AD989 /* Assets.xcassets */; };
 		0745F39C23BF91E5009AD989 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0745F39A23BF91E5009AD989 /* LaunchScreen.storyboard */; };
@@ -62,6 +65,9 @@
 		07146FEF23C8E6A100D9C819 /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		07146FF123C8E88400D9C819 /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
 		07146FF323C8F8D400D9C819 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		071470AE23CD63D800D9C819 /* SocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialApp.swift; sourceTree = "<group>"; };
+		071470B023CD6B4100D9C819 /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
+		071470B223CD726900D9C819 /* SnappingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingLayout.swift; sourceTree = "<group>"; };
 		0745F38E23BF91E2009AD989 /* AppStoreJSONApis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStoreJSONApis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0745F39123BF91E2009AD989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0745F39823BF91E5009AD989 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -219,6 +225,8 @@
 				07146FDB23C3A30D00D9C819 /* Apps */,
 				0745F3BF23BF9286009AD989 /* BaseTabBarController.swift */,
 				07146FDE23C3A3C200D9C819 /* BaseListController.swift */,
+				071470B023CD6B4100D9C819 /* HorizontalSnappingController.swift */,
+				071470B223CD726900D9C819 /* SnappingLayout.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -247,6 +255,7 @@
 			children = (
 				07F407B223C11A6B003927B9 /* SearchResult.swift */,
 				07146FF323C8F8D400D9C819 /* AppGroup.swift */,
+				071470AE23CD63D800D9C819 /* SocialApp.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -506,7 +515,9 @@
 				07146FEE23C8E4A900D9C819 /* AppsPageController.swift in Sources */,
 				0745F39223BF91E2009AD989 /* AppDelegate.swift in Sources */,
 				07146FE423C3A62800D9C819 /* AppsGroupCell.swift in Sources */,
+				071470B323CD726900D9C819 /* SnappingLayout.swift in Sources */,
 				07146FEC23C8CC2E00D9C819 /* AppsPageHeader.swift in Sources */,
+				071470AF23CD63D800D9C819 /* SocialApp.swift in Sources */,
 				07F407B623C12909003927B9 /* Service.swift in Sources */,
 				07F407B323C11A6B003927B9 /* SearchResult.swift in Sources */,
 				07F407A423BFAF94003927B9 /* AppSearchController.swift in Sources */,
@@ -520,6 +531,7 @@
 				07F407B023C1036E003927B9 /* ASStackView.swift in Sources */,
 				07146FE623C3AC8100D9C819 /* AppsHorizontalController.swift in Sources */,
 				07146FEA23C3B59F00D9C819 /* Extensions.swift in Sources */,
+				071470B123CD6B4100D9C819 /* HorizontalSnappingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,14 @@ import UIKit
 
 private let headerAppCell = "headerAppCell"
 
-class AppsHeaderHorizontalController: BaseListController {
+class AppsHeaderHorizontalController: HorizontalSnappingController {
+    
+    var socials = [SocialApp]() {
+        didSet {
+            print("Socials: \(socials.count)")
+            collectionView.reloadData()
+        }
+    }
     
     let topBottomPadding: CGFloat = 30
     let leftRightPadding: CGFloat = 20
@@ -20,7 +27,7 @@ class AppsHeaderHorizontalController: BaseListController {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: headerAppCell)
-        
+        collectionView.contentInset = .init(top: topBottomPadding, left: leftRightPadding, bottom: topBottomPadding, right: leftRightPadding)
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
@@ -31,7 +38,7 @@ class AppsHeaderHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return socials.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -39,12 +46,11 @@ class AppsHeaderHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerAppCell, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerAppCell, for: indexPath) as! AppsHeaderCell
+        let socialApp = socials[indexPath.item]
+        cell.companyLabel.text = socialApp.name
+        cell.titleLabel.text = socialApp.tagline
+        cell.imageView.sd_setImage(with: URL(string: socialApp.imageUrl), completed: nil)
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: topBottomPadding, left: leftRightPadding, bottom: topBottomPadding, right: leftRightPadding)
-    }
-    
 }
