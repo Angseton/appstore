@@ -61,11 +61,11 @@ class AppSearchController: BaseListController {
 
 private extension AppSearchController {
     func fetchITunesApps(searchTerm: String) {
-        Service.shared.fetchApps(searchTerm: searchTerm) { [unowned self] results, error in
+        Service.shared.fetchApps(searchTerm: searchTerm) { [unowned self] result, error in
             if let error = error {
                 print("Failed to fetch apps:", error)
             }
-            self._appResults = results
+            self._appResults = result?.results ?? []
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
