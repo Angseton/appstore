@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = BaseTabBarController()
+        let tabBarController = BaseTabBarController()
+        tabBarController.delegate = self
+        window?.rootViewController = tabBarController
         return true
     }
 
@@ -42,7 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+}
 
-
+extension AppDelegate: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if let navController = (viewController as? UINavigationController) {
+            navController.popToRootViewController(animated: true)
+            if let scrollableController = navController.viewControllers.first as? UICollectionViewController {
+                scrollableController.collectionView.scroll(to: .top, animated: true)
+            }
+        }
+    }
 }
 

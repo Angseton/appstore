@@ -16,14 +16,7 @@ class AppsPageController: BaseListController {
     var groups = [AppGroup]()
     var apps = [SocialApp]()
     
-    let activityIndicatorView: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.color = .darkGray
-        indicator.hidesWhenStopped = true
-        indicator.startAnimating()
-        return indicator
-    }()
-        
+    let activityIndicatorView = UIActivityIndicatorView.getStandardIndicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +49,13 @@ class AppsPageController: BaseListController {
         let appGroup = groups[indexPath.item]
         cell.sectionLabel.text = appGroup.feed.title
         cell.horizontalController.results = appGroup.feed.results
+        cell.horizontalController.didSelectHandler = { [weak self] feedResult in
+            let controller = AppDetailController()
+            controller.view.backgroundColor = .white
+            controller.appId = feedResult.id
+            controller.navigationItem.title = feedResult.name
+            self?.navigationController?.pushViewController(controller, animated: true)
+        }
         return cell
     }
     

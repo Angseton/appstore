@@ -22,6 +22,8 @@ class AppsHorizontalController: HorizontalSnappingController {
         }
     }
     
+    var didSelectHandler: ((FeedResult) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -37,6 +39,11 @@ class AppsHorizontalController: HorizontalSnappingController {
             cell.companyLabel.text = results[indexPath.item].artistName
         }
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let app = results[indexPath.item]
+        didSelectHandler?(app)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

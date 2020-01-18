@@ -10,11 +10,12 @@ import UIKit
 
 class ASStackView: UIStackView {
     
-    init(arrangedSubviews: [UIView], spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .horizontal) {
+    init(arrangedSubviews: [UIView], spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .horizontal, alignment: UIStackView.Alignment = .fill) {
         super.init(frame: .zero)
         arrangedSubviews.forEach { addArrangedSubview($0) }
         self.axis = axis
         self.spacing = spacing
+        self.alignment = alignment
     }
     
     override init(frame: CGRect) {
