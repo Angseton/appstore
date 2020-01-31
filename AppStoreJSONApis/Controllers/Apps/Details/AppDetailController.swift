@@ -14,7 +14,9 @@ class AppDetailController: BaseListController {
     
     let detailCellId = "detailCellId"
     let previewCellId = "previewCellId"
+    let reviewCellId = "reviewCellId"
     var app: Result?
+    var review: Review?
     
     var appId: String! {
         didSet {
@@ -28,6 +30,24 @@ class AppDetailController: BaseListController {
                     self.activityIndicatorView.stopAnimating()
                 }
             }
+            
+            let reviewUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId ?? "")/sortby=mostrecent/json?l=en&cc=us"
+            print("url", reviewUrl)
+            Service.shared.fetchGenericApi(urlString: reviewUrl) { (reviews: Review?, err) in
+                print("fetching data")
+                if let err = err {
+                    print("Failed to decode reviews", err)
+                    return
+                }
+                
+                self.review = reviews
+                reviews?.feed.entry.forEach { entry in
+                    print(entry)
+                }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
         }
     }
     
@@ -36,13 +56,14 @@ class AppDetailController: BaseListController {
         collectionView.backgroundColor = .white
         collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: detailCellId)
         collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: previewCellId)
+        collectionView.register(ReviewRowCell.self, forCellWithReuseIdentifier: reviewCellId)
         view.addSubview(activityIndicatorView)
         activityIndicatorView.fillSuperview()
         navigationItem.largeTitleDisplayMode = .never
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return app != nil ? 2 : 0
+        return app != nil ? 3 : 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,10 +72,14 @@ class AppDetailController: BaseListController {
             guard let app = app else { return cell }
             cell.app = app
             return cell
-        } else {
+        } else if indexPath.item == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewCellId, for: indexPath) as! PreviewCell
             guard let app = app else { return cell }
             cell.horizontalController.screenshotUrls = app.screenshotUrls
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewCellId, for: indexPath) as! ReviewRowCell
+            cell.reviewsController.reviews = self.review
             return cell
         }
     }
@@ -68,8 +93,14 @@ class AppDetailController: BaseListController {
             let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 2000))
             
             return .init(width: view.frame.width, height: estimatedSize.height)
-        } else {
+        } else if indexPath.item == 1 {
             return .init(width: view.frame.width, height: 500)
+        } else {
+            return .init(width: view.frame.width, height: 230)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 0, bottom: 16, right: 0)
     }
 }

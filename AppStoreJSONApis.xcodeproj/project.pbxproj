@@ -38,6 +38,10 @@
 		07F407B623C12909003927B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F407B523C12909003927B9 /* Service.swift */; };
 		1BD10393E5AFB5FDFF5F0C34 /* Pods_AppStoreJSONApisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 269E7FC7F430AD9AE042224D /* Pods_AppStoreJSONApisTests.framework */; };
 		2FA7620133F203A310BDF961 /* Pods_AppStoreJSONApis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A9F1566E710053518187728 /* Pods_AppStoreJSONApis.framework */; };
+		3D3D39C823E4A3C30089FCAC /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D39C723E4A3C30089FCAC /* Review.swift */; };
+		3DE34FEF23DCBF0900BA1B92 /* ReviewRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE34FEE23DCBF0900BA1B92 /* ReviewRowCell.swift */; };
+		3DE34FF123DCC10600BA1B92 /* ReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE34FF023DCC10600BA1B92 /* ReviewsController.swift */; };
+		3DE34FF323DCC25600BA1B92 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE34FF223DCC25600BA1B92 /* ReviewCell.swift */; };
 		C788D7164A2578CED9879BCC /* Pods_AppStoreJSONApisUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BA7F5AAFA27D13ACDAF917 /* Pods_AppStoreJSONApisUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +100,10 @@
 		07F407B523C12909003927B9 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		269E7FC7F430AD9AE042224D /* Pods_AppStoreJSONApisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONApisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27BA7F5AAFA27D13ACDAF917 /* Pods_AppStoreJSONApisUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONApisUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3D39C723E4A3C30089FCAC /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		3DE34FEE23DCBF0900BA1B92 /* ReviewRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRowCell.swift; sourceTree = "<group>"; };
+		3DE34FF023DCC10600BA1B92 /* ReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsController.swift; sourceTree = "<group>"; };
+		3DE34FF223DCC25600BA1B92 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		54A79025D6FA9CC2F9DD6210 /* Pods-AppStoreJSONApis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.debug.xcconfig"; sourceTree = "<group>"; };
 		695A7E1D0A09E18388F32DED /* Pods-AppStoreJSONApisUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApisUITests.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApisUITests/Pods-AppStoreJSONApisUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6A9F1566E710053518187728 /* Pods_AppStoreJSONApis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONApis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +185,8 @@
 			children = (
 				071470BE23D3917700D9C819 /* AppDetailCell.swift */,
 				071470C023D3AB0200D9C819 /* PreviewCell.swift */,
+				3DE34FEE23DCBF0900BA1B92 /* ReviewRowCell.swift */,
+				3DE34FF223DCC25600BA1B92 /* ReviewCell.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -186,6 +196,7 @@
 			children = (
 				071470BB23D0F09800D9C819 /* AppDetailController.swift */,
 				071470C223D3ACA400D9C819 /* PreviewScreenshotsController.swift */,
+				3DE34FF023DCC10600BA1B92 /* ReviewsController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -284,6 +295,7 @@
 				07F407B223C11A6B003927B9 /* SearchResult.swift */,
 				07146FF323C8F8D400D9C819 /* AppGroup.swift */,
 				071470AE23CD63D800D9C819 /* SocialApp.swift */,
+				3D3D39C723E4A3C30089FCAC /* Review.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -548,9 +560,11 @@
 				071470AF23CD63D800D9C819 /* SocialApp.swift in Sources */,
 				07F407B623C12909003927B9 /* Service.swift in Sources */,
 				07F407B323C11A6B003927B9 /* SearchResult.swift in Sources */,
+				3DE34FF123DCC10600BA1B92 /* ReviewsController.swift in Sources */,
 				07F407A423BFAF94003927B9 /* AppSearchController.swift in Sources */,
 				07F407A723BFB3BD003927B9 /* SearchResultCell.swift in Sources */,
 				0745F3C023BF9286009AD989 /* BaseTabBarController.swift in Sources */,
+				3DE34FF323DCC25600BA1B92 /* ReviewCell.swift in Sources */,
 				07146FF223C8E88400D9C819 /* AppsHeaderCell.swift in Sources */,
 				071470C323D3ACA400D9C819 /* PreviewScreenshotsController.swift in Sources */,
 				071470C123D3AB0200D9C819 /* PreviewCell.swift in Sources */,
@@ -560,9 +574,11 @@
 				07146FF423C8F8D400D9C819 /* AppGroup.swift in Sources */,
 				07146FE823C3B43E00D9C819 /* AppsRowCell.swift in Sources */,
 				07F407B023C1036E003927B9 /* ASStackView.swift in Sources */,
+				3D3D39C823E4A3C30089FCAC /* Review.swift in Sources */,
 				07146FE623C3AC8100D9C819 /* AppsHorizontalController.swift in Sources */,
 				071470BF23D3917700D9C819 /* AppDetailCell.swift in Sources */,
 				07146FEA23C3B59F00D9C819 /* Extensions.swift in Sources */,
+				3DE34FEF23DCBF0900BA1B92 /* ReviewRowCell.swift in Sources */,
 				071470B123CD6B4100D9C819 /* HorizontalSnappingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
