@@ -18,37 +18,15 @@ class AppDetailController: BaseListController {
     var app: Result?
     var review: Review?
     
-    var appId: String! {
-        didSet {
-            print("App id", appId)
-            let urlString = "https://itunes.apple.com/lookup?id=\(appId ?? "")"
-            Service.shared.fetchGenericApi(urlString: urlString) { (result: SearchResult?, err) in
-                let app = result?.results.first
-                self.app = app
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.activityIndicatorView.stopAnimating()
-                }
-            }
-            
-            let reviewUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId ?? "")/sortby=mostrecent/json?l=en&cc=us"
-            print("url", reviewUrl)
-            Service.shared.fetchGenericApi(urlString: reviewUrl) { (reviews: Review?, err) in
-                print("fetching data")
-                if let err = err {
-                    print("Failed to decode reviews", err)
-                    return
-                }
-                
-                self.review = reviews
-                reviews?.feed.entry.forEach { entry in
-                    print(entry)
-                }
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
+    let appId: String
+    
+    init(appId: String) {
+        self.appId = appId
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -60,6 +38,7 @@ class AppDetailController: BaseListController {
         view.addSubview(activityIndicatorView)
         activityIndicatorView.fillSuperview()
         navigationItem.largeTitleDisplayMode = .never
+        fetchData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -102,5 +81,35 @@ class AppDetailController: BaseListController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 16, right: 0)
+    }
+    
+    func fetchData() {
+        let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
+        Service.shared.fetchGenericApi(urlString: urlString) { (result: SearchResult?, err) in
+            let app = result?.results.first
+            self.app = app
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.activityIndicatorView.stopAnimating()
+            }
+        }
+        
+        let reviewUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?l=en&cc=us"
+        print("url", reviewUrl)
+        Service.shared.fetchGenericApi(urlString: reviewUrl) { (reviews: Review?, err) in
+            print("fetching data")
+            if let err = err {
+                print("Failed to decode reviews", err)
+                return
+            }
+            
+            self.review = reviews
+            reviews?.feed.entry.forEach { entry in
+                print(entry)
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
 }

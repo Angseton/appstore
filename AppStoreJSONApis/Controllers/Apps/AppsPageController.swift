@@ -50,9 +50,8 @@ class AppsPageController: BaseListController {
         cell.sectionLabel.text = appGroup.feed.title
         cell.horizontalController.results = appGroup.feed.results
         cell.horizontalController.didSelectHandler = { [weak self] feedResult in
-            let controller = AppDetailController()
+            let controller = AppDetailController(appId: feedResult.id)
             controller.view.backgroundColor = .white
-            controller.appId = feedResult.id
             controller.navigationItem.title = feedResult.name
             self?.navigationController?.pushViewController(controller, animated: true)
         }
