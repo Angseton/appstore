@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = BaseTabBarController()
         tabBarController.delegate = self
         window?.rootViewController = tabBarController
+        UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 
